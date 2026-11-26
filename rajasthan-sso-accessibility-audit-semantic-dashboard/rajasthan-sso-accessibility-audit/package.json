@@ -1,0 +1,28 @@
+{
+  "name": "rajasthan-sso-accessibility-audit",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w client\" \"npm run dev -w server\"",
+    "build": "npm run build -w client && npm run build -w server",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "playwright test",
+    "audit:lighthouse": "lhci autorun",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "audit:target": "lighthouse https://sso.rajasthan.gov.in/signin --output html --output-path docs/evidence/rajasthan-sso-lighthouse.html --chrome-flags=\"--headless --no-sandbox\"",
+    "validate:html": "html-validate docs/validation/semantic-dashboard.html"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "concurrently": "^9.2.1",
+    "@lhci/cli": "^0.15.1",
+    "typescript": "^5.9.3",
+    "lighthouse": "^12.8.2",
+    "@axe-core/playwright": "^4.10.2",
+    "html-validate": "^10.5.0"
+  }
+}
